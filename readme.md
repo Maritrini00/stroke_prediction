@@ -18,3 +18,6 @@ streamlit run app.py
 ### MIC 2 Facultad de Ingeniería
 ### MACHINE LEARING
 #### Maritrini Velázquez Ruiz 329675
+
+## Streamlit Link
+https://strokeprediction-iwly5uv8ygcuncgo4xp7mn.streamlit.app/
