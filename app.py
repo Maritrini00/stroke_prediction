@@ -29,16 +29,19 @@ modelXGB = joblib.load('xgb_clf2.sav')
 
 def main():
     st.title("Stroke Prediction")
-    gender = st.selectbox("gender",["Male","Female"])
-    age = st.number_input("age",min_value=0.08,max_value=82.00,value="min")
-    hypertension = st.selectbox("hypertension",[0,1])
-    heart_disease = st.selectbox("heart disease",[0,1])
-    ever_married = st.selectbox("ever married",["Yes","No"])
-    work_type = st.selectbox("work type",["children","Govt_job","Never_worked","Private","Self-employed"])
-    Residence_type = st.selectbox("Resindence Type",["Urban","Rural"])
-    avg_glucose_level = st.number_input("avg glucose level",min_value=55.12,max_value=271.74,value="min")
-    bmi = st.number_input("bmi",min_value=10.30,max_value=97.60,value="min")
-    smoking_status = st.selectbox("Smoking Status",["formerly smoked","never smoked","smokes","Unknown"])
+    col1, col2 = st.columns(2)
+    with col1:
+        gender = st.selectbox("gender",["Male","Female"])
+        age = st.number_input("age",min_value=0.08,max_value=82.00,value="min")
+        hypertension = st.selectbox("hypertension",[0,1])
+        heart_disease = st.selectbox("heart disease",[0,1])
+        ever_married = st.selectbox("ever married",["Yes","No"])
+    with col2:
+        work_type = st.selectbox("work type",["children","Govt_job","Never_worked","Private","Self-employed"])
+        Residence_type = st.selectbox("Resindence Type",["Urban","Rural"])
+        avg_glucose_level = st.number_input("avg glucose level",min_value=55.12,max_value=271.74,value="min")
+        bmi = st.number_input("bmi",min_value=10.30,max_value=97.60,value="min")
+        smoking_status = st.selectbox("Smoking Status",["formerly smoked","never smoked","smokes","Unknown"])
     select_model = st.selectbox("Select the model you want to try",["LogisticRegression","Poly-SVC","RBF-SVC","AdaBoost","Bagging","GradientBoost",
                                                                     "DecisionTree","RandomForest","Voting","XGBoost"])
     if st.button("Predict Stroke"):
