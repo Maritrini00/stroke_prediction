@@ -13,6 +13,7 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier, AdaBoostClassifier, GradientBoostingClassifier, BaggingClassifier
 import xgboost as xgb
+from sklearn.neural_network import MLPClassifier
 
 modelLR = joblib.load('model_LR.sav')
 modelPoly = joblib.load('model_poly.sav')
@@ -24,6 +25,7 @@ modelDT = joblib.load('dt_best_smote_scaled.sav')
 modelRF = joblib.load('rf_best_smote_scaled.sav')
 modelVote = joblib.load('voting_clf.sav')
 modelXGB = joblib.load('xgb_clf2.sav')
+mlp = joblib.load('mlp_best.sav')
 
 #pipeline = joblib.load('stroke_pipeline.sav')
 
@@ -43,7 +45,7 @@ def main():
         bmi = st.number_input("bmi",min_value=10.30,max_value=97.60,value="min")
         smoking_status = st.selectbox("Smoking Status",["formerly smoked","never smoked","smokes","Unknown"])
     select_model = st.selectbox("Select the model you want to try",["LogisticRegression","Poly-SVC","RBF-SVC","AdaBoost","Bagging","GradientBoost",
-                                                                    "DecisionTree","RandomForest","Voting","XGBoost"])
+                                                                    "DecisionTree","RandomForest","Voting","XGBoost","MLP"])
     if st.button("Predict Stroke"):
         features = [[gender,age,hypertension,heart_disease,ever_married,work_type,Residence_type,avg_glucose_level,
                      bmi,smoking_status]]
@@ -82,6 +84,8 @@ def main():
             prediction = modelVote.predict(df_prepared)
         elif select_model == "XGBoost":
             prediction = modelXGB.predict(df_prepared)
+        elif select_model == "MLP":
+            prediction = mlp.predict(df_prepared)
         if prediction == 0:
             output = 'No Stroke'
         elif prediction == 1:
