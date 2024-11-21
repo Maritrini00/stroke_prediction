@@ -20,6 +20,7 @@ modelPoly = joblib.load('model_poly.sav')
 modelRBF = joblib.load('model_rbf.sav')
 modelAda = joblib.load('ada_clf2.sav')
 modelBag = joblib.load('bag_clf.sav')
+linearSVC = joblib.load('linear_svm.sav')
 modelGradBoost = joblib.load('grad_boost_clf.sav')
 modelDT = joblib.load('dt_best_smote_scaled.sav')
 modelRF = joblib.load('rf_best_smote_scaled.sav')
@@ -45,7 +46,7 @@ def main():
         bmi = st.number_input("bmi",min_value=10.30,max_value=97.60,value="min")
         smoking_status = st.selectbox("Smoking Status",["formerly smoked","never smoked","smokes","Unknown"])
     select_model = st.selectbox("Select the model you want to try",["LogisticRegression","Poly-SVC","RBF-SVC","AdaBoost","Bagging","GradientBoost",
-                                                                    "DecisionTree","RandomForest","Voting","XGBoost","MLP"])
+                                                                    "DecisionTree","RandomForest","Voting","XGBoost","MLP","LinearSVC"])
     if st.button("Predict Stroke"):
         features = [[gender,age,hypertension,heart_disease,ever_married,work_type,Residence_type,avg_glucose_level,
                      bmi,smoking_status]]
@@ -86,6 +87,8 @@ def main():
             prediction = modelXGB.predict(df_prepared)
         elif select_model == "MLP":
             prediction = mlp.predict(df_prepared)
+        elif select_model == "LinearSVC":
+            prediction = linearSVC.predict(df_prepared)
         if prediction == 0:
             output = 'No Stroke'
         elif prediction == 1:
